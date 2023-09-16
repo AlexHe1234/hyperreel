@@ -13,8 +13,8 @@ channels:
   - nvidia
   - defaults
 dependencies:
-  - cudatoolkit=11.6
-  - cudatoolkit-dev
+  # - cudatoolkit=11.6
+  # - cudatoolkit-dev
   - kornia
   - matplotlib
   - pillow

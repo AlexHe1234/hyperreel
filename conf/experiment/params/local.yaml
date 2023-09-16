@@ -2,16 +2,16 @@
 
 tensor: True
 
-ckpt_dir: ~/checkpoints
-log_dir: ~/logs
-data_dir: ~/data
+ckpt_dir: /home/heguangzhao/hyperreel/checkpoints
+log_dir: /home/heguangzhao/hyperreel/logs
+data_dir: /home/heguangzhao/hyperreel/data
 name: "${experiment.dataset.name}_${experiment.dataset.collection}"
 
 print_loss: False
 save_results: True
 
-tensorboard: False
-log_images: False
+tensorboard: True
+log_images: True
 log_videos: False
 
 show_embedding: False

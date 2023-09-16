@@ -10,7 +10,7 @@ CUDA_VISIBLE_DEVICES=$1 python main.py experiment/dataset=llff_large \
     experiment.training.render_every=10 \
     experiment.training.test_every=10 \
     experiment/model=llff_z_plane \
-    experiment.params.print_loss=True \
+    experiment.params.print_loss=False \
     experiment.dataset.collection=$2 \
     +experiment/regularizers/tensorf=tv_4000_large
 

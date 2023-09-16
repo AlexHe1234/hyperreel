@@ -32,7 +32,8 @@ def psnr(image_pred, image_gt):
     #return np.array(-10 * torch.log10(mse(torch.tensor(image_pred), torch.tensor(image_gt), torch.tensor((image_gt != 1.0).any(-1)).unsqueeze(-1).repeat((1, 1, 3)), 'mean')))
 
 def ssim(image0, image1):
-    return structural_similarity(np.array(image1), np.array(image0), win_size=11, multichannel=True, gaussian_weights=True, data_range=1.0)
+    # breakpoint()
+    return structural_similarity(np.array(image1), np.array(image0), win_size=11, multichannel=True, gaussian_weights=True, data_range=2.0, channel_axis=2)
 
 def psnr_gpu(image_pred, image_gt, valid_mask=None, reduction='mean'):
     #return 10*torch.log10(torch.square(image_gt.max() - image_gt.min()) / mse(image_pred, image_gt, valid_mask, reduction))

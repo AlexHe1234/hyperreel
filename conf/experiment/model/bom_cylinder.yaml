@@ -144,7 +144,7 @@ embedding:
 
       # Intersect
       z_channels: 32 # NOTE: Changed from 32
-
+ 
       intersect:
         type: cylinder
 

@@ -109,13 +109,13 @@ class BaseDataset(Dataset):
         pass
 
     def prepare_train_data(self):
-        self.num_images = len(self.image_paths)
+        self.num_images = len(self.ims)
 
         ## Collect training data
         self.all_coords = []
         self.all_rgb = []
 
-        for idx in range(len(self.image_paths)):
+        for idx in range(self.num_images):
             # coords
             self.all_coords += [self.get_coords(idx)]
 

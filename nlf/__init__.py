@@ -56,7 +56,7 @@ from .models import model_dict
 from .regularizers import regularizer_dict
 from .visualizers import visualizer_dict
 
-from utils.gui_utils import NeRFGUI
+# from utils.gui_utils import NeRFGUI
 
 
 class INRTrainer(Trainer):
@@ -149,18 +149,18 @@ class INRDataModule(LightningDataModule):
     
     def reload_data(self):
         ## Train, val, test datasets
-        dataset_cl = dataset_dict[self.cfg.dataset.train.name] \
-            if 'train' in self.cfg.dataset else dataset_dict[self.cfg.dataset.name]
+        dataset_cl = dataset_dict[self.cfg.dataset.train.name] if 'train' in self.cfg.dataset else dataset_dict[self.cfg.dataset.name]
         self.train_dataset = dataset_cl(self.cfg, split='train')
-        dataset_cl = dataset_dict[self.cfg.dataset.val.name] \
-            if 'val' in self.cfg.dataset else dataset_dict[self.cfg.dataset.name]
+        
+        dataset_cl = dataset_dict[self.cfg.dataset.val.name] if 'val' in self.cfg.dataset else dataset_dict[self.cfg.dataset.name]
         self.val_dataset = dataset_cl(self.cfg, split='val')
-        dataset_cl = dataset_dict[self.cfg.dataset.test.name] \
-            if 'test' in self.cfg.dataset else dataset_dict[self.cfg.dataset.name]
-        self.test_dataset = dataset_cl(self.cfg, split='test')
-        dataset_cl = dataset_dict[self.cfg.dataset.render.name] \
-            if 'render' in self.cfg.dataset else dataset_dict[self.cfg.dataset.name]
-        self.render_dataset = dataset_cl(self.cfg, split='render')
+        
+        # dataset_cl = dataset_dict[self.cfg.dataset.test.name] \
+        #     if 'test' in self.cfg.dataset else dataset_dict[self.cfg.dataset.name]
+        # self.test_dataset = dataset_cl(self.cfg, split='test')
+        # dataset_cl = dataset_dict[self.cfg.dataset.render.name] \
+        #     if 'render' in self.cfg.dataset else dataset_dict[self.cfg.dataset.name]
+        # self.render_dataset = dataset_cl(self.cfg, split='render')
 
         ## Stats
         self.original_dataset_size = len(self.train_dataset)
@@ -221,6 +221,7 @@ class INRDataModule(LightningDataModule):
 
     def train_dataloader(self):
         if self.sample_with_replacement:
+            # breakpoint()
             sampler = RandomSampler(
                 self.train_dataset,
                 replacement=True,
@@ -654,6 +655,7 @@ class INRSystem(LightningModule):
         #with torch.autocast("cuda"):
         outputs = {}
         coords, rgb, weight = batch['coords'], batch['rgb'], batch['weight']
+        weight = 1.
 
         results = self(coords, **self.regularizer_render_kwargs)
 
@@ -662,7 +664,7 @@ class INRSystem(LightningModule):
 
         if train_iter >= 0:
             # Calculate image loss and PSNR
-            image_loss = self.loss(results['rgb'] * weight, rgb * weight, **batch)
+            image_loss = self.loss(results['rgb'].unsqueeze(0) * weight, rgb * weight, **batch)
             loss = image_loss
 
             outputs['train/psnr'] = psnr_gpu(results['rgb'], rgb).detach()

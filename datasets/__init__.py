@@ -25,6 +25,7 @@ from .neural_3d import Neural3DVideoDataset
 from .catacaustics import CatacausticsDataset
 from .immersive import ImmersiveDataset
 from .spaces import SpacesDataset
+from .nhr import NHRDataset
 
 dataset_dict = {
     "fourier": FourierDataset,
@@ -53,4 +54,5 @@ dataset_dict = {
     "catacaustics": CatacausticsDataset,
     "immersive": ImmersiveDataset,
     "spaces": SpacesDataset,
+    "nhr": NHRDataset,
 }

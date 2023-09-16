@@ -26,7 +26,7 @@ def get_base_time(
             )
         else:
             base_t = t
-
+        # breakpoint()
         # Round
         base_t = torch.round(base_t.clamp(0.0, flow_keyframes - 1.0) - 1e-5) * (1.0 / fac)
     else:
