@@ -1,0 +1,41 @@
+# @package _group_
+
+name: nhr
+collection: sport1
+data_subdir: NHR
+root_dir: "${experiment.params.data_dir}/${experiment.dataset.data_subdir}/${experiment.dataset.collection}/"
+
+training_view: []
+test_view: []
+abandon_view: []
+
+#img_wh: [2704, 2028]
+img_wh: [1024, 768]  # [1224, 1024]
+spherical_poses: True
+use_ndc: False
+use_reference: False
+correct_poses: False
+
+# Validation
+val_num: 400
+val_skip: 2
+
+val_all: False
+val_set: [18, 28, 37, 46]
+
+# Video
+start_frame: 0
+num_frames: 100 
+keyframe_step: 4
+
+load_full_step: 1
+subsample_keyframe_step: 2
+subsample_keyframe_frac: 0.25
+subsample_frac: 0.125
+
+# Rendering
+render_params:
+  interpolate_time: False
+  interpolate: False
+  supersample: 2
+  crop: 0.85
